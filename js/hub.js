@@ -40,8 +40,8 @@ const showData = (tools, isShowAll, sortDate) => {
         <div class="card-body">
           <h2><span>Features: <br></span>${tool?.features?.map((feature, i) => `${i + 1}. ${feature}`).join(' <br> ')}</h2>
           <hr>
-          <h2 class="text-xl font-bold">${tool.name}</h2>
-          <p><i class="fa-regular fa-calendar"></i> ${tool.published_in}</p>
+          <h2 class="text-xl font-bold">${tool?.name}</h2>
+          <p><i class="fa-regular fa-calendar"></i> ${tool?.published_in}</p>
         </div>
         
         `;
@@ -84,7 +84,7 @@ const toggleLoadingSpinner = (isLoading) =>{
 const handleSingleDetails =async (id) =>{
    const res = await fetch(`https://openapi.programming-hero.com/api/ai/tool/${id}`)
    const data = await res.json();
-   const items = data.data
+   const items = data?.data
   //  console.log(items)
    displaySingleDetails(items);
 }
@@ -93,7 +93,7 @@ const displaySingleDetails = (items) =>{
   console.log(items)
   // console.log(items.image_link)
   const singleDetailsContainer = document.getElementById('single-details-container');
-  const features = Object.entries(items.features);
+  const features = Object.entries(items?.features);
   // console.log(features)
   const featuresArray = features.map(feature => feature[1])
   // console.log(featuresArray);
@@ -104,24 +104,26 @@ const displaySingleDetails = (items) =>{
   singleDetailsContainer.innerHTML =`
   
    <div class="flex flex-row gap-4">
-   <div class="flex-1 border-2 border-red-400 h-[500px]">
-   <h3 class="text-xl font-semibold mb-8">${items.description}</h3>
+   <div class="flex-1 border-2 border-red-400 h-[500px] p-4">
+   <h3 class="text-xl font-semibold mb-8">${items?.description}</h3>
    <div class="flex flex-row justify-center items-center gap-4 mb-6">
-   <p>${items.pricing.map(perPrice =>`<P class="shadow-lg rounded-lg p-4">${perPrice.price}</p>`)}</p>
+   <p>${items?.pricing.map(perPrice =>`<P class="shadow-lg rounded-lg p-4">${perPrice?.price === 'No cost'? 'Free of cost' : perPrice?.price}</p>`)}</p>
    </div>
    <div class="featured-div flex flex-row gap-8 justify-around items-center">
    <div class="left-div">
      <h3 class="text-xl font-bold">Features</h3>
-     <ul class="list-decimal">${ featuresArray.map((feature) => `<li>${feature.feature_name}</li>`).join('')}</ul>
+     <ul class="list-decimal">${ featuresArray.map((feature) => `<li>${feature?.feature_name}</li>`).join('')}</ul>
    </div>
    <div class="right-div">
    <h3 class="text-xl font-bold">Integrations</h3>
-     <p>${items.integrations.map((integration, index) => `${index +1}. ${integration}`).join('<br>')}</p>
+     <p>${items?.integrations.map((integration, index) => `${index +1}. ${integration}`).join('<br>') || 'No Data Found'}</p>
    </div>
    </div>
    </div>
-   <div class="flex-1">
-   <img src="${items.image_link[0]}"/>
+   <div class="flex-1 p-4 border-2 border-gray-300">
+   <img src="${items?.image_link[0]}"/>
+   <h3 class="text-center text-xl font-semibold mt-6">${items?.input_output_examples[0]?.input}</h3>
+   <h3 class="text-center mt-6">${items?.input_output_examples[0]?.output}</h3>
    </div>
    
    </div>
