@@ -85,22 +85,43 @@ const handleSingleDetails =async (id) =>{
    const res = await fetch(`https://openapi.programming-hero.com/api/ai/tool/${id}`)
    const data = await res.json();
    const items = data.data
-   console.log(items)
+  //  console.log(items)
    displaySingleDetails(items);
 }
 
 const displaySingleDetails = (items) =>{
+  console.log(items)
+  // console.log(items.image_link)
   const singleDetailsContainer = document.getElementById('single-details-container');
+  const features = Object.entries(items.features);
+  // console.log(features)
+  const featuresArray = features.map(feature => feature[1])
+  // console.log(featuresArray);
+  // const allFeatures = featuresArray.map(feature => )
+  // ${items.image_link.map(image => `<img class="w-[200px]" src='${image}' />`).join(' ')}
+  
+  
   singleDetailsContainer.innerHTML =`
   
    <div class="flex flex-row gap-4">
    <div class="flex-1 border-2 border-red-400 h-[500px]">
    <h3 class="text-xl font-semibold mb-8">${items.description}</h3>
-   <div class="flex flex-row justify-center items-center gap-4">
-   <p>${items.pricing.map(perPrice =>`<P class="shadow-lg p-4">${perPrice.price}</p>`)}</p>
+   <div class="flex flex-row justify-center items-center gap-4 mb-6">
+   <p>${items.pricing.map(perPrice =>`<P class="shadow-lg rounded-lg p-4">${perPrice.price}</p>`)}</p>
+   </div>
+   <div class="featured-div flex flex-row gap-8 justify-around items-center">
+   <div class="left-div">
+     <h3 class="text-xl font-bold">Features</h3>
+     <ul class="list-decimal">${ featuresArray.map((feature) => `<li>${feature.feature_name}</li>`).join('')}</ul>
+   </div>
+   <div class="right-div">
+   <h3 class="text-xl font-bold">Integrations</h3>
+     <p>${items.integrations.map((integration, index) => `${index +1}. ${integration}`).join('<br>')}</p>
    </div>
    </div>
-   <div class="flex-1 bg-red-400">
+   </div>
+   <div class="flex-1">
+   <img src="${items.image_link[0]}"/>
    </div>
    
    </div>
@@ -108,8 +129,10 @@ const displaySingleDetails = (items) =>{
 
 
 
-  const myModal4 =document.getElementById('my_modal_4')
-  myModal4.showModal();
+
+  // const myModal4 =document.getElementById('my_modal_4')
+  // myModal4.showModal();
+  my_modal_4.showModal()
 
 }
 

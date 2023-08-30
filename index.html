@@ -39,13 +39,16 @@
         <section>
                 <!-- You can open the modal using ID.showModal() method -->
                 <dialog id="my_modal_4" class="modal">
-                    <form method="dialog" class="modal-box h-[700px] w-11/12 max-w-5xl">
+                    <form method="dialog" class="modal-box h-[700px] w-11/12 max-w-5xl relative overflow-visible">
                         <div id="single-details-container">
 
                         </div>
                         <div class="modal-action">
                             <!-- if there is a button, it will close the modal -->
-                            <button class="btn">Close</button>
+                            <!-- <button class="btn outline-none relative -top-[550px] -right-[20px]">Close</button> -->
+                            <button class="btn outline-none border-none absolute -top-6 -right-6 btn-square bg-red-400 text-white rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                              </button>
                         </div>
                     </form>
                 </dialog>
