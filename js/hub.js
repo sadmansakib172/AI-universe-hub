@@ -104,7 +104,7 @@ const displaySingleDetails = (items) =>{
   singleDetailsContainer.innerHTML =`
   
    <div class="flex flex-row gap-4">
-   <div class="flex-1 border-2 border-red-400 h-[500px] p-4">
+   <div class="flex-1 border-2 border-red-400 p-4">
    <h3 class="text-xl font-semibold mb-8">${items?.description}</h3>
    <div class="flex flex-row justify-center items-center gap-4 mb-6">
    <p>${items?.pricing.map(perPrice =>`<P class="shadow-lg rounded-lg p-4">${perPrice?.price === 'No cost'? 'Free of cost' : perPrice?.price}</p>`)}</p>
